@@ -1,0 +1,30 @@
+package org.firstinspires.ftc.teamcode.subsystems;
+
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.HardwareMap;
+
+public class Shooter {
+    private DcMotorEx shooter;
+
+    private double ticksPerRot;
+    public void init(HardwareMap hardwareMap) {
+        shooter = hardwareMap.get(DcMotorEx.class, "shooter1");
+        shooter.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        ticksPerRot = shooter.getMotorType().getTicksPerRev();
+    }
+
+    public void start(double power) {
+        shooter.setVelocity(power);
+    }
+
+    public void kill() {
+        shooter.setVelocity(0);
+    }
+
+    public double getVelo() {
+        return shooter.getVelocity();
+    }
+
+}
