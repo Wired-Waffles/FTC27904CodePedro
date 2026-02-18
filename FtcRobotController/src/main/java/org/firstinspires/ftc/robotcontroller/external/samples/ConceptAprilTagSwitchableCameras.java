@@ -81,27 +81,27 @@ public class ConceptAprilTagSwitchableCameras extends LinearOpMode {
         telemetry.update();
         waitForStart();
 
-        if (opModeIsActive()) {
-            while (opModeIsActive()) {
+        while (opModeIsActive()) {
 
-                telemetryCameraSwitching();
-                telemetryAprilTag();
 
-                // Push telemetry to the Driver Station.
-                telemetry.update();
+            telemetryCameraSwitching();
+            telemetryAprilTag();
 
-                // Save CPU resources; can resume streaming when needed.
-                if (gamepad1.dpad_down) {
-                    visionPortal.stopStreaming();
-                } else if (gamepad1.dpad_up) {
-                    visionPortal.resumeStreaming();
-                }
+            // Push telemetry to the Driver Station.
+            telemetry.update();
 
-                doCameraSwitching();
-
-                // Share the CPU.
-                sleep(20);
+            // Save CPU resources; can resume streaming when needed.
+            if (gamepad1.dpad_down) {
+                visionPortal.stopStreaming();
+            } else if (gamepad1.dpad_up) {
+                visionPortal.resumeStreaming();
             }
+
+            doCameraSwitching();
+
+            // Share the CPU.
+            sleep(20);
+
         }
 
         // Save more CPU resources when camera is no longer needed.
