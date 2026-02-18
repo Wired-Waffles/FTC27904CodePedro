@@ -28,14 +28,17 @@ boolean maintenance = true;
         waitForStart();
         while (opModeIsActive()) {
             //function testing
+            turret.reset();
             if (!maintenance) {
                 telemetry.addData("UHHHHHHH", "to dooooo");
             } else {
-            if (gamepad1.a){ shooter.start(70);}
-            if (gamepad1.x){ shooter.kill();}
-            if (gamepad1.right_bumper){ intake.intakePower(0.1);}
-            if (gamepad2.dpad_right){ turret.setPos(turret.getPos() + turretPosIncrement);}
-            if (gamepad2.dpad_left){ turret.setPos(turret.getPos() - turretPosIncrement);}
+                if (gamepad1.a){ shooter.start(70);}
+                if (gamepad1.x){ shooter.kill();}
+                if (gamepad1.right_bumper){ intake.intakePower(0.1);}
+                if (gamepad2.dpad_right){ turret.setPos(turret.getPos() + turretPosIncrement);}
+                if (gamepad2.dpad_left){ turret.setPos(turret.getPos() - turretPosIncrement);}
+                if (gamepad2.dpad_up){turret.power(0.2);}
+                if (gamepad2.dpad_down){turret.kill();}
             }
         }
 
