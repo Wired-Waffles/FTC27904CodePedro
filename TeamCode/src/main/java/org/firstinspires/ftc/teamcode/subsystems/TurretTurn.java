@@ -22,11 +22,9 @@ public class TurretTurn {
     }
 
     public void power(double power){
-        turret.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         turret.setPower(power);
     }
     public void kill(){
-        turret.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         turret.setPower(0);
     }
     public void reset(){

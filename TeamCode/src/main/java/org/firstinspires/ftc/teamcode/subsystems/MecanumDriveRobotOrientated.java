@@ -4,9 +4,16 @@ import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.tel
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.util.ElapsedTime;
+
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 public class MecanumDriveRobotOrientated {
-    private DcMotor frontLeftDrive, frontRightDrive, backLeftDrive, backRightDrive;
+    private DcMotor frontLeftDrive,
+            frontRightDrive,
+            backLeftDrive,
+            backRightDrive;
+    private ElapsedTime runtime = new ElapsedTime();
     public void init(HardwareMap hardwareMap) {
         frontLeftDrive = hardwareMap.get(DcMotor.class, "front_left");
         frontRightDrive = hardwareMap.get(DcMotor.class, "front_right");
@@ -18,13 +25,16 @@ public class MecanumDriveRobotOrientated {
         backRightDrive.setDirection(DcMotor.Direction.FORWARD);
     }
 
-    public void drive(double drive, double strafe, double turn) {
+    public void drive(double drive, double strafe, double turn, Telemetry telemetry) {
         double[] speeds = {
                 (drive + strafe + turn),
                 (drive - strafe - turn),
                 (drive - strafe + turn),
                 (drive + strafe - turn)
+                
         };
+
+
         double max = Math.abs(speeds[0]);
         for(int i = 0; i < speeds.length; i++) {
             if ( max < Math.abs(speeds[i]) ) max = Math.abs(speeds[i]);
@@ -33,13 +43,12 @@ public class MecanumDriveRobotOrientated {
         if (max > 1) {
             for (int i = 0; i < speeds.length; i++) speeds[i] /= max;
         }
-        frontLeftDrive.setPower(speeds[0]);
-        frontRightDrive.setPower(speeds[1]);
-        backLeftDrive.setPower(speeds[2]);
-        backRightDrive.setPower(speeds[3]);
-        telemetry.addData("Status", "Run Time: " + runtime.toString());
-        telemetry.addData("Front left/Right", "%4.2f, %4.2f", speeds[0], speeds[1]);
-        telemetry.addData("Back  left/Right", "%4.2f, %4.2f", speeds[2], speeds[3]);
+        frontLeftDrive.setPower(drive + strafe + turn);
+        frontRightDrive.setPower(drive - strafe - turn);
+        backLeftDrive.setPower(drive - strafe + turn);
+        backRightDrive.setPower(drive + strafe - turn);
+        telemetry.addData("Front left/Right", "%4.2f, %4.2f", frontLeftDrive.getPower(), frontRightDrive.getPower());
+        telemetry.addData("Back  left/Right", "%4.2f, %4.2f", backLeftDrive.getPower(), backRightDrive.getPower());
         telemetry.update();
     }
-    }
+}
