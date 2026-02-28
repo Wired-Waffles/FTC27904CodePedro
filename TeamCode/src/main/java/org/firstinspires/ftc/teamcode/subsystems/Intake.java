@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode.subsystems;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 public class Intake {
@@ -17,10 +16,5 @@ public class Intake {
 
     public void intakePower(double power) {
         intake.setPower(power);
-    }
-
-    public double getTotalRots (){
-        double gearRatio = 5;
-        return intake.getCurrentPosition() / ticksPerRot * gearRatio;
     }
 }

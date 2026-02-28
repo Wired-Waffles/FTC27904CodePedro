@@ -51,7 +51,7 @@ Gamepad panelsPad2;
             } else {
                 turret.kill();
                 intake.intakePower(0);
-                int speedDivisor = 2;
+                speedDivisor = 2;
                 if (gamepad1.a || panelsPad1.a){ shooter.start(shooterSpeed);}
                 if (gamepad1.x || panelsPad1.x){ shooter.kill();}
                 if (gamepad1.dpad_up || panelsPad1.dpad_up){ intake.intakePower(-0.5);}
