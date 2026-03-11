@@ -13,8 +13,8 @@ public class Shooter {
     private double targetVelocity;
 
     public void init(HardwareMap hwMap) {
-        motor1 = hwMap.get(DcMotorEx.class, "shooter_left");
-        motor2 = hwMap.get(DcMotorEx.class, "shooter_right");
+        motor1 = hwMap.get(DcMotorEx.class, "shooter1");
+        motor2 = hwMap.get(DcMotorEx.class, "shooter2");
         motor1.setDirection(DcMotorEx.Direction.FORWARD);
         motor2.setDirection(DcMotorEx.Direction.FORWARD);
 
