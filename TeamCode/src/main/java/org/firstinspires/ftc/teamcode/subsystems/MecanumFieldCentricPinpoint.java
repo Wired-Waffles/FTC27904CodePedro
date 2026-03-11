@@ -7,8 +7,6 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.Pose2D;
 
-import com.pedropathing.geometry.Pose;
-
 public class MecanumFieldCentricPinpoint {
     private DcMotor frontLeftDrive, frontRightDrive, backLeftDrive, backRightDrive;
     private GoBildaPinpointDriver pinpoint;

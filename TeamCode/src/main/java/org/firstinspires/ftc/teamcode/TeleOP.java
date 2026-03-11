@@ -1,22 +1,19 @@
 package org.firstinspires.ftc.teamcode;
 
-import com.bylazar.gamepad.GamepadManager;
-import com.bylazar.gamepad.PanelsGamepad;
 import com.bylazar.telemetry.PanelsTelemetry;
 import com.bylazar.telemetry.TelemetryManager;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.Gamepad;
 
 import org.firstinspires.ftc.teamcode.subsystems.Intake;
-import org.firstinspires.ftc.teamcode.subsystems.Shooter;
+import org.firstinspires.ftc.teamcode.subsystems.ShooterOld;
 import org.firstinspires.ftc.teamcode.subsystems.TurretTurn;
 import org.firstinspires.ftc.teamcode.subsystems.MecanumDriveRobotOrientated;
 
 
 @TeleOp(name = "New TeleOP")
 public class TeleOP extends LinearOpMode {
-Shooter shooter = new Shooter();
+ShooterOld shooter = new ShooterOld();
 Intake intake = new Intake();
 TurretTurn turret = new TurretTurn();
 MecanumDriveRobotOrientated mecanumDrive = new MecanumDriveRobotOrientated();
@@ -25,6 +22,7 @@ int turretPosIncrement = 29;
 boolean maintenance = true;
 int speedDivisor = 1;
 int shooterSpeed = 1000;
+private TelemetryManager panelsTelemetry;
 
 
 
@@ -35,6 +33,7 @@ int shooterSpeed = 1000;
         shooter.init(hardwareMap);
         turret.init(hardwareMap);
         mecanumDrive.init(hardwareMap);
+        panelsTelemetry = PanelsTelemetry.INSTANCE.getTelemetry();
 
         waitForStart();
         while (opModeIsActive()) {
@@ -62,6 +61,7 @@ int shooterSpeed = 1000;
                 if (gamepad2.cross){shooterSpeed -= 100; shooter.start(shooterSpeed);}
                 mecanumDrive.drive(-gamepad1.left_stick_y/speedDivisor, gamepad1.left_stick_x/speedDivisor, (-gamepad1.left_trigger+gamepad1.right_trigger)/speedDivisor, telemetry);
                 telemetry.addData("Turret Pos in ticks", turret.getPos());
+                panelsTelemetry.update(telemetry);
             }
         }
 
