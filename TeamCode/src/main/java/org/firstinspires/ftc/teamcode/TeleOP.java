@@ -21,7 +21,7 @@ MecanumDriveRobotOrientated mecanumDrive = new MecanumDriveRobotOrientated();
 int turretPosIncrement = 29;
 boolean maintenance = true;
 int speedDivisor = 1;
-int shooterSpeed = 1000;
+int shooterSpeed = 2500;
 private TelemetryManager panelsTelemetry;
 
 
@@ -46,11 +46,11 @@ private TelemetryManager panelsTelemetry;
             } else {
                 turret.kill();
                 intake.intakePower(0);
-                speedDivisor = 1;
+                speedDivisor = 2;
 
                 if (gamepad2.a ){ shooter.start(shooterSpeed);}
-                if (gamepad1.x){ shooter.kill();}
-                if (gamepad1.dpad_up){ intake.intakePower(0.5);}
+                if (gamepad2.x){ shooter.kill();}
+                if (gamepad1.dpad_up){ intake.intakePower(1);}
                 if (gamepad1.dpad_down){ intake.intakePower(1);}
                 if (gamepad2.dpad_up){turret.power(1);}
                 if (gamepad2.dpad_down){turret.power(-1);}
