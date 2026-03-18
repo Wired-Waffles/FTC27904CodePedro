@@ -48,18 +48,14 @@ private TelemetryManager panelsTelemetry;
                 intake.intakePower(0);
                 speedDivisor = 1;
 
-                if (gamepad1.a ){ shooter.start(shooterSpeed);}
+                if (gamepad2.a ){ shooter.start(shooterSpeed);}
                 if (gamepad1.x){ shooter.kill();}
                 if (gamepad1.dpad_up){ intake.intakePower(0.5);}
                 if (gamepad1.dpad_down){ intake.intakePower(1);}
-                if (gamepad2.dpad_right){ turret.setPos(turret.getPos() + turretPosIncrement);}
-                if (gamepad2.dpad_left){ turret.setPos(turret.getPos() - turretPosIncrement);}
                 if (gamepad2.dpad_up){turret.power(1);}
                 if (gamepad2.dpad_down){turret.power(-1);}
                 if (gamepad1.left_bumper){speedDivisor = 5;}
-                if (gamepad2.circle){shooterSpeed += 100; shooter.start(shooterSpeed);}
-                if (gamepad2.cross){shooterSpeed -= 100; shooter.start(shooterSpeed);}
-                mecanumDrive.drive(-gamepad1.left_stick_y/speedDivisor, gamepad1.left_stick_x/speedDivisor, (-gamepad1.left_trigger+gamepad1.right_trigger)/speedDivisor, telemetry);
+                mecanumDrive.drive(-gamepad1.left_stick_y/speedDivisor, gamepad1.left_stick_x/speedDivisor, -gamepad1.right_stick_x/speedDivisor, telemetry);
                 telemetry.addData("Turret Pos in ticks", turret.getPos());
                 panelsTelemetry.update(telemetry);
             }

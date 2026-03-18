@@ -42,8 +42,8 @@ public class TurretAutoTrack {
 
         while (turretTargetAngle > 180) turretTargetAngle -= 360;
         while (turretTargetAngle < -180) turretTargetAngle += 360;
-        if (turretTargetAngle > 170) turretTargetAngle = 170;
-        if (turretTargetAngle < -170) turretTargetAngle = -170;
+        if (turretTargetAngle > 130) turretTargetAngle = 130;
+        if (turretTargetAngle < -130) turretTargetAngle = -130;
         int targetTicks = (int) (turretTargetAngle * TICKS_PER_DEGREE);
         turret.setTargetPosition(targetTicks);
         turret.setMode(DcMotor.RunMode.RUN_TO_POSITION);
