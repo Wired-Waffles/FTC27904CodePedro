@@ -1,9 +1,13 @@
 package org.firstinspires.ftc.teamcode.subsystems;
 
+import com.qualcomm.hardware.gobilda.GoBildaPinpointDriver;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
+
+import java.util.Objects;
 
 public class Shooter {
     private DcMotorEx motor1, motor2;
@@ -61,6 +65,40 @@ public class Shooter {
     }
     public double getTargetVelo() {
         return targetVelocity;
+    }
+
+    ShooterInterpolation shooterLUT = new ShooterInterpolation();
+    GoBildaPinpointDriver pinpoint;
+
+
+
+    public void initLUT() {
+        //fake points rn, replace latr
+        shooterLUT.addDataPoint(24.0, 1500);
+        shooterLUT.addDataPoint(48.0, 1850);
+        shooterLUT.addDataPoint(72.0, 2200);
+        shooterLUT.addDataPoint(120.0, 2600);
+    }
+
+    public void updateShooterAuto(Telemetry telemetry, String colour) {
+        pinpoint.update();
+        int goalX = 0;
+        if (Objects.equals(colour, "blue")) {
+            goalX = 12;
+        } else {
+            goalX = 132;
+        }
+        double goalY = 132;
+
+        double dx = goalX - pinpoint.getPosX(DistanceUnit.INCH);
+        double dy = goalY - pinpoint.getPosY(DistanceUnit.INCH);
+        double distance = Math.hypot(dx, dy);
+        double dynamicTarget = shooterLUT.getVelocity(distance) + ShooterConstants.shotOffset;
+
+        targetVelocity = dynamicTarget;
+
+        telemetry.addData("Distance to Goal", distance);
+        telemetry.addData("Target Velocity", dynamicTarget);
     }
 
 }
