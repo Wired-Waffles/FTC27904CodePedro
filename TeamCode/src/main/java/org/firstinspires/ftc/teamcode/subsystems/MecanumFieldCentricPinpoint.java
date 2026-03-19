@@ -11,6 +11,8 @@ public class MecanumFieldCentricPinpoint {
     private DcMotor frontLeftDrive, frontRightDrive, backLeftDrive, backRightDrive;
     private GoBildaPinpointDriver pinpoint;
 
+    private double headingOffset = 0;
+
     public void init(HardwareMap hardwareMap) {
         frontLeftDrive = hardwareMap.get(DcMotor.class, "front_left");
         frontRightDrive = hardwareMap.get(DcMotor.class, "front_right");
@@ -23,15 +25,18 @@ public class MecanumFieldCentricPinpoint {
         backRightDrive.setDirection(DcMotor.Direction.FORWARD);
 
         pinpoint = hardwareMap.get(GoBildaPinpointDriver.class, "pinpoint");
-
         pinpoint.setOffsets(-99.75, -111.23, DistanceUnit.MM);
         pinpoint.setEncoderResolution(GoBildaPinpointDriver.GoBildaOdometryPods.goBILDA_4_BAR_POD);
 
         pinpoint.resetPosAndIMU();
     }
+
+    public void setTeam(boolean isBlue) {
+        headingOffset = isBlue ? Math.PI : 0;
+    }
+
     public void drive(double x, double y, double rx) {
-        pinpoint.update();
-        double botHeading = pinpoint.getHeading(AngleUnit.RADIANS);
+        double botHeading = pinpoint.getHeading(AngleUnit.RADIANS) + headingOffset;
 
         double rotX = x * Math.cos(-botHeading) - y * Math.sin(-botHeading);
         double rotY = x * Math.sin(-botHeading) + y * Math.cos(-botHeading);
@@ -48,10 +53,12 @@ public class MecanumFieldCentricPinpoint {
         frontRightDrive.setPower(frontRightPower);
         backRightDrive.setPower(backRightPower);
     }
+
     public void resetHeading() {
         pinpoint.resetPosAndIMU();
     }
-    public void resetPose(double x, double y, double headingDegrees) {
-        pinpoint.setPosition(new Pose2D(DistanceUnit.INCH ,x, y, AngleUnit.RADIANS ,Math.toRadians(headingDegrees)));
+
+    public void resetPose(float x, float y, double headingDegrees) {
+        pinpoint.setPosition(new Pose2D(DistanceUnit.INCH, x, y, AngleUnit.DEGREES, headingDegrees));
     }
 }

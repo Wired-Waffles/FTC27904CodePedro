@@ -9,4 +9,5 @@ public class ShooterConstants {
     public static double kD = 0.0001;
     public static double kF = 0.0005;
     public static double shotOffset = 0;
+    public static int shooterSpeed = 2500;
 }
