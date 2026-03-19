@@ -16,10 +16,6 @@ public class TurretTurn {
         return turret.getCurrentPosition();
     }
 
-    public void setPos(int pos) {
-        turret.setTargetPosition(pos);
-        turret.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-    }
 
     public void power(double power){
         turret.setPower(power);
